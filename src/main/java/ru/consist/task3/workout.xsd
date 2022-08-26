@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="magazine">
+        <xs:annotation>
+            <xs:documentation>Элемент-контейнер - содержит элементы "workout".</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="workout">
+                    <xs:annotation>
+                        <xs:documentation>Элемент содержит информацию о тренировке.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="date" type="xs:date">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Указывается дата проведения тренировки в формате YYYY-MM-DD
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="name" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>Указывается вид тренировки</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="time" type="xs:time">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Указывается время, затраченное на проведение тренировки
+                                        в формате hh:mm:ss
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="kilometers" type="xs:positiveInteger" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Указывается количество километров, которые человек преодолел за время тренировки
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="description" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Описывается проделанная работа: выполненные упражнения, количество подходов и т.д.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="avrHeartRate" type="xs:positiveInteger" minOccurs="0" default="0">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Указывается средннее значение пульса (уд/мин)
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="calories" type="xs:positiveInteger">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Указывается количество сожженых калорий (ккал)
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+
+                            <xs:element name="health" type="xs:string" minOccurs="0" default="">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        Описывается самочувствие во время тренировки
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="duplicateIdForbidden">
+            <xs:selector xpath="*"/>
+            <xs:field xpath="@id"/>
+        </xs:unique>
+    </xs:element>
+</xs:schema>

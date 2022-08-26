@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<magazine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="workout.xsd">
+    <workout id="1">
+        <date>2021-07-20</date>
+        <name>Кросс</name>
+        <time>00:30:00</time>
+        <kilometers>5</kilometers>
+        <description>Бег по пересеченной местности</description>
+        <avrHeartRate>169</avrHeartRate>
+        <calories>200</calories>
+        <health>Хорошее</health>
+    </workout>
+
+    <workout id="2">
+        <date>2021-07-23</date>
+        <name>Силовая</name>
+        <time>00:40:00</time>
+        <description>Упражнения на пресс, ноги</description>
+        <avrHeartRate>169</avrHeartRate>
+        <calories>150</calories>
+        <health>Отличное</health>
+    </workout>
+
+    <workout id="3">
+        <date>2021-07-26</date>
+        <name>Кросс</name>
+        <time>00:30:00</time>
+        <kilometers>6</kilometers>
+        <description>Бег по пересеченной местности</description>
+        <avrHeartRate>172</avrHeartRate>
+        <calories>220</calories>
+        <health>Хорошее</health>
+    </workout>
+
+    <workout id="4">
+        <date>2021-07-29</date>
+        <name>Кросс</name>
+        <time>00:40:00</time>
+        <kilometers>8</kilometers>
+        <description>Бег по пересеченной местности</description>
+        <avrHeartRate>172</avrHeartRate>
+        <calories>200</calories>
+        <health>Хорошее</health>
+    </workout>
+
+    <workout id="5">
+        <date>2021-07-31</date>
+        <name>Силовая</name>
+        <time>00:30:00</time>
+        <description>Упражнения на пресс и руки</description>
+        <avrHeartRate>160</avrHeartRate>
+        <calories>170</calories>
+        <health>Хорошее</health>
+    </workout>
+</magazine>

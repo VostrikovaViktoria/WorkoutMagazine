@@ -1,0 +1,267 @@
+openapi: 3.0.3
+
+info:
+  title: MagazineWorkouts API
+  description: "This is a training log that is designed for sports enthusiasts
+  who want to record information about their workouts and track progress."
+  version: '1.0'
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: workout
+    description: Everything about workouts
+
+paths:
+  /workouts:
+    get:
+      tags:
+        - workout
+      summary: Get all workouts
+      description: Return all workouts from the system
+      operationId: getAllWorkouts
+      responses:
+        '200':
+          description: An array of workouts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workouts"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                title: Workouts not found
+                type: string
+                example: Not
+    post:
+      tags:
+        - workout
+      summary: Add a new workout to the magazine
+      operationId: addWorkout
+      requestBody:
+        description: Workout object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+        required: true
+      responses:
+        '405':
+          description: Invalid input
+      x-codegen-request-body-name: body
+
+  /workouts/totalCoveredKilometers:
+    get:
+      tags:
+        - workout
+      summary: Get total covered kilometers
+      operationId: getTotalKilometers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseByKilometers"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Not
+  /workouts/totalTrainingTime:
+    get:
+      tags:
+        - workout
+      summary: Get total training time
+      operationId: getTrainingTime
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseByTime"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Not
+  /workouts/amountBurnedCalories:
+    get:
+      tags:
+        - workout
+      summary: Get amount of calories burned
+      operationId: getAmountBurnedCalories
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseByCalories"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Not
+
+  /workouts/{workoutId}:
+    get:
+      tags:
+        - workout
+      description: Return workout based on ID
+      summary: Find workout by ID
+      operationId: getWorkoutById
+      parameters:
+        - name: workoutId
+          in: path
+          description: ID of workout to use
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Workout response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+        "400":
+          description: Invalid ID supplied
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Workout not found
+                type: string
+                example: Not found
+    put:
+      tags:
+        - workout
+      summary: Update an existing workout by ID
+      operationId: updateWorkout
+      parameters:
+        - name: workoutId
+          in: path
+          description: ID of workout to use
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Workout object that needs to be update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+        required: true
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Workout not found
+        '405':
+          description: Validation exception
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - workout
+      summary: Delete a workout by ID
+      operationId: deleteWorkoutById
+      parameters:
+        - name: workoutId
+          in: path
+          description: ID of workout
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Workout not found
+components:
+  schemas:
+    Workout:
+      type: object
+      required:
+        - id
+        - date
+        - name
+        - time
+        - description
+        - calories
+      properties:
+        id:
+          description: ID of the workout
+          type: integer
+          format: int64
+        date:
+          description: The date of the workout
+          type: string
+        name:
+          description: The name of the workout
+          type: string
+        time:
+          description: The duration of the workout
+          type: string
+        kilometers:
+          description: The amount of the kilometers that user has run
+          type: integer
+          format: int32
+        description:
+          description: The description of the completed exercises
+          type: string
+        avrHeartRate:
+          description: The average amount of heart rate
+          type: integer
+          format: int32
+        calories:
+          description: The amount of the calories that user has burned
+          type: integer
+          format: int32
+        health:
+          description: The description of the health during workout
+          type: string
+    Workouts:
+      type: array
+      items:
+        $ref: "#/components/schemas/Workout"
+    ResponseByKilometers:
+      type: object
+      required:
+        - amountKilometers
+      properties:
+        amountKilometers:
+          description: The amount of the kilometers that user has run for all the time
+          type: integer
+          format: int64
+    ResponseByTime:
+      type: object
+      required:
+        - amountTrainingTime
+      properties:
+        amountTrainingTime:
+          description: The duration of the workout for all the time
+          type: string
+    ResponseByCalories:
+      type: object
+      required:
+        - amountBurnedCalories
+      properties:
+        amountBurnedCalories:
+          description: The amount of the calories that user has burned for all the time
+          type: integer
+          format: int64
